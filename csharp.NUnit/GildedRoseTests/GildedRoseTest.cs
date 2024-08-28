@@ -23,4 +23,19 @@ public class GildedRoseShould
         app.UpdateQuality();
         Assert.That(items[0].Quality, Is.EqualTo(0));
     }
+    
+    [Test]
+    public void Never_allow_quality_to_go_negative_when_UpdateQuality_called()
+    {
+        var items = new List<Item>
+        {
+            new Item { Name = "foo", SellIn = 0, Quality = 1 },
+            new Item { Name = "item2", SellIn = 1, Quality = 0 }
+        };
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+        Assert.That(items[0].Quality, Is.EqualTo(0));
+        Assert.That(items[1].Quality, Is.EqualTo(0));
+
+    }
 }
