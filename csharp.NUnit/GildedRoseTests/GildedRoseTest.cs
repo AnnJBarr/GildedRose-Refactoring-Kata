@@ -4,14 +4,14 @@ using NUnit.Framework;
 
 namespace GildedRoseTests;
 
-public class GildedRoseTest
+public class GildedRoseShould
 {
     [Test]
-    public void Foo()
+    public void UpdateQuality_by_reducing_non_special_item_quality_by_1_while_within_sellin_date()
     {
-        var items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+        var items = new List<Item> { new Item { Name = "foo", SellIn = 1, Quality = 2 } };
         var app = new GildedRose(items);
         app.UpdateQuality();
-        Assert.That(items[0].Name, Is.EqualTo("fixme"));
+        Assert.That(items[0].Quality, Is.EqualTo(1));
     }
 }
