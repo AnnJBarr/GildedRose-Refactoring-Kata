@@ -151,4 +151,23 @@ public class GildedRoseShould
             Assert.That(items[4].Quality, Is.EqualTo(13));
         });
     }
+
+    [Test]
+    public void UpdateQuality_by_dropping_BackStage_Passes_quality_to_0_after_concert()
+    {
+        var items = new List<Item>()
+        {
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 12 },
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 25 },
+        };
+        
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+        
+       Assert.Multiple(() =>
+       {
+           Assert.That(items[0].Quality, Is.EqualTo(0));
+           Assert.That(items[1].Quality, Is.EqualTo(0));
+       });
+    }
 }
