@@ -107,4 +107,23 @@ public class GildedRoseShould
             Assert.That(items[1].Quality, Is.EqualTo(12));    
         });
     }
+    
+    [Test]
+    public void Never_decrease_sellIn_of_Legendary_Items_when_UpdateQuality_called()
+    {
+        var items = new List<Item>()
+        {
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 12 },
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 12 }
+        };
+
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(items[0].SellIn, Is.EqualTo(0));
+            Assert.That(items[1].SellIn, Is.EqualTo(5));    
+        });
+    }
 }
