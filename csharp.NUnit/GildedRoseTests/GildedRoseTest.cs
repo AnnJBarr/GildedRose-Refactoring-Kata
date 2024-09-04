@@ -34,9 +34,11 @@ public class GildedRoseShould
         };
         var app = new GildedRose(items);
         app.UpdateQuality();
-        Assert.That(items[0].Quality, Is.EqualTo(0));
-        Assert.That(items[1].Quality, Is.EqualTo(0));
-
+        Assert.Multiple(() =>
+        {
+            Assert.That(items[0].Quality, Is.EqualTo(0));
+            Assert.That(items[1].Quality, Is.EqualTo(0));    
+        });
     }
 
     [Test]
@@ -61,8 +63,11 @@ public class GildedRoseShould
         };
         var app = new GildedRose(items);
         app.UpdateQuality();
-        Assert.That(items[0].Quality, Is.EqualTo(4));
-        Assert.That(items[1].Quality, Is.EqualTo(5));
+        Assert.Multiple(() =>
+        {
+            Assert.That(items[0].Quality, Is.EqualTo(4));
+            Assert.That(items[1].Quality, Is.EqualTo(5));    
+        });
     }
     
     [Test]
@@ -76,9 +81,30 @@ public class GildedRoseShould
         };
         var app = new GildedRose(items);
         app.UpdateQuality();
-        Assert.That(items[0].Quality, Is.EqualTo(50));
-        Assert.That(items[1].Quality, Is.EqualTo(50));
-        Assert.That(items[2].Quality, Is.EqualTo(50));
+        Assert.Multiple(() =>
+        {
+            Assert.That(items[0].Quality, Is.EqualTo(50));
+            Assert.That(items[1].Quality, Is.EqualTo(50));
+            Assert.That(items[2].Quality, Is.EqualTo(50));    
+        });
+    }
+    
+    [Test]
+    public void Never_decrease_quality_of_Legendary_Items_when_UpdateQuality_called()
+    {
+        var items = new List<Item>()
+        {
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 12 },
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 12 }
+        };
 
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(items[0].Quality, Is.EqualTo(12));
+            Assert.That(items[1].Quality, Is.EqualTo(12));    
+        });
     }
 }
