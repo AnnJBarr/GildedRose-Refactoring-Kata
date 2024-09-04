@@ -126,4 +126,29 @@ public class GildedRoseShould
             Assert.That(items[1].SellIn, Is.EqualTo(5));    
         });
     }
+
+    [Test]
+    public void UpdateQuality_by_increasing_BackStage_Passes_quality_by_2_when_sellin_date_between_5_and_10()
+    {
+        var items = new List<Item>()
+        {
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 7, Quality = 12 },
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 20 },
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 20 },
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 3, Quality = 10 },
+            new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 11, Quality = 12 },
+        };
+        
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+        
+        Assert.Multiple(() =>
+        {
+            Assert.That(items[0].Quality, Is.EqualTo(14));
+            Assert.That(items[1].Quality, Is.EqualTo(22));
+            Assert.That(items[2].Quality, Is.EqualTo(23));
+            Assert.That(items[3].Quality, Is.EqualTo(13));
+            Assert.That(items[4].Quality, Is.EqualTo(13));
+        });
+    }
 }
