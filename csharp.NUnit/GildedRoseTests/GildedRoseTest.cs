@@ -183,4 +183,19 @@ public class GildedRoseShould
            Assert.That(items[1].Quality, Is.EqualTo(0));
        });
     }
+
+    [Test]
+    public void Maintain_Sulfuras_Quality_at_80_at_All_Times()
+    {
+        var items = new List<Item>()
+        {
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 },
+            new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 80 }
+        };
+        
+        var app = new GildedRose(items);
+        app.UpdateQuality();
+        
+        Assert.That(items[0].Quality, Is.EqualTo(80));
+    }
 }
