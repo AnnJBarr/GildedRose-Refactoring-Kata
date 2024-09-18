@@ -18,7 +18,7 @@ public class GildedRose
             if (!IsBrie(item) && !IsBackstagePass(item))
             {
                 if (QualityNotMin(item) && IsStandardItem(item))
-                    ChangeQuality(item,-1);
+                    DecreaseQuality(item);
             }
             else
             {
@@ -43,7 +43,7 @@ public class GildedRose
                 {
                     if (!IsBackstagePass(item))
                     {
-                        if (QualityNotMin(item) && IsStandardItem(item)) ChangeQuality(item,-1);
+                        if (QualityNotMin(item) && IsStandardItem(item)) DecreaseQuality(item);
                     }
                     else
                     {
@@ -56,6 +56,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static void DecreaseQuality(Item item)
+    {
+        ChangeQuality(item,-1);
     }
 
     private static void IncreaseQuality(Item item)
