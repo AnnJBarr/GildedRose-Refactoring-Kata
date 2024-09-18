@@ -51,7 +51,7 @@ public class GildedRose
                 item.SellIn = item.SellIn - 1;
             }
 
-            if (item.SellIn < 0)
+            if (HasExpired(item))
             {
                 if (item.Name != "Aged Brie")
                 {
@@ -76,6 +76,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static bool HasExpired(Item item)
+    {
+        return item.SellIn < 0;
     }
 
     private static bool QualityNotMax(Item item) => item.Quality < 50;
