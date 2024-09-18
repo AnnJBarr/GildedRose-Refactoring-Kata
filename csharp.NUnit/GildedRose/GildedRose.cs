@@ -47,7 +47,7 @@ public class GildedRose
                     }
                     else
                     {
-                        ChangeQuality(item,-item.Quality);
+                        ReduceQualityToZero(item);
                     }
                 }
                 else
@@ -56,6 +56,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static void ReduceQualityToZero(Item item)
+    {
+        item.Quality = 0;
     }
 
     private static void DecreaseQuality(Item item)
