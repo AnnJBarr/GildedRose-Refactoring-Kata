@@ -13,6 +13,7 @@ public class GildedRose
 
     public void UpdateQuality()
     {
+        //can we encapsulate this logic anywhere else?
         foreach (var item in Items)
         {
             if (!IsBrie(item) && !IsBackstagePass(item))
