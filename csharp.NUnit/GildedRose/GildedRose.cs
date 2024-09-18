@@ -24,13 +24,13 @@ public class GildedRose
             {
                 if (QualityNotMax(item))
                 {
-                    ChangeQuality(item,1);
+                    IncreaseQuality(item);
 
                     if (IsBackstagePass(item))
                     {
-                        if (item.SellIn < 11 && QualityNotMax(item)) ChangeQuality(item,1);
+                        if (item.SellIn < 11 && QualityNotMax(item)) IncreaseQuality(item);
 
-                        if (item.SellIn < 6 && QualityNotMax(item)) ChangeQuality(item,1);
+                        if (item.SellIn < 6 && QualityNotMax(item)) IncreaseQuality(item);
                     }
                 }
             }
@@ -52,10 +52,15 @@ public class GildedRose
                 }
                 else
                 {
-                    if (QualityNotMax(item)) ChangeQuality(item,1);
+                    if (QualityNotMax(item)) IncreaseQuality(item);
                 }
             }
         }
+    }
+
+    private static void IncreaseQuality(Item item)
+    {
+        ChangeQuality(item,1);
     }
 
     private static int DecreaseSellIn(Item item)
