@@ -18,12 +18,7 @@ public class GildedRose
             if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
                 if (QualityNotMin(item))
-                {
-                    if (item.Name != "Sulfuras, Hand of Ragnaros")
-                    {
-                        ChangeQuality(item,-1);
-                    }
-                }
+                    if (IsStandardItem(item)) ChangeQuality(item,-1);
             }
             else
             {
@@ -46,10 +41,7 @@ public class GildedRose
                 }
             }
 
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.SellIn = item.SellIn - 1;
-            }
+            if (IsStandardItem(item)) item.SellIn = item.SellIn - 1;
 
             if (HasExpired(item))
             {
@@ -59,10 +51,7 @@ public class GildedRose
                     {
                         if (QualityNotMin(item))
                         {
-                            if (item.Name != "Sulfuras, Hand of Ragnaros")
-                            {
-                                ChangeQuality(item,-1);
-                            }
+                            if (IsStandardItem(item)) ChangeQuality(item,-1);
                         }
                     }
                     else
@@ -76,6 +65,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static bool IsStandardItem(Item item)
+    {
+        return item.Name != "Sulfuras, Hand of Ragnaros";
     }
 
     private static bool QualityNotMin(Item item)
