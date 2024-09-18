@@ -15,7 +15,7 @@ public class GildedRose
     {
         foreach (var item in Items)
         {
-            if (item.Name != "Aged Brie" && !IsBackstagePass(item))
+            if (!IsBrie(item) && !IsBackstagePass(item))
             {
                 if (QualityNotMin(item) && IsStandardItem(item))
                     ChangeQuality(item,-1);
@@ -39,7 +39,7 @@ public class GildedRose
 
             if (HasExpired(item))
             {
-                if (item.Name != "Aged Brie")
+                if (!IsBrie(item))
                 {
                     if (!IsBackstagePass(item))
                     {
@@ -56,6 +56,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static bool IsBrie(Item item)
+    {
+        return item.Name == "Aged Brie";
     }
 
     private static bool IsBackstagePass(Item item)
