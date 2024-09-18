@@ -35,7 +35,7 @@ public class GildedRose
                 }
             }
 
-            if (IsStandardItem(item)) item.SellIn = item.SellIn - 1;
+            if (IsStandardItem(item)) DecreaseSellIn(item);
 
             if (HasExpired(item))
             {
@@ -56,6 +56,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static int DecreaseSellIn(Item item)
+    {
+        return item.SellIn -= 1;
     }
 
     private static bool IsBrie(Item item)
