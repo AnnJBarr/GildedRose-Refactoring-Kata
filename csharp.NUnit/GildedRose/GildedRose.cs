@@ -17,7 +17,7 @@ public class GildedRose
         {
             if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
             {
-                if (item.Quality > 0)
+                if (QualityNotMin(item))
                 {
                     if (item.Name != "Sulfuras, Hand of Ragnaros")
                     {
@@ -57,7 +57,7 @@ public class GildedRose
                 {
                     if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (item.Quality > 0)
+                        if (QualityNotMin(item))
                         {
                             if (item.Name != "Sulfuras, Hand of Ragnaros")
                             {
@@ -76,6 +76,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static bool QualityNotMin(Item item)
+    {
+        return item.Quality > 0;
     }
 
     private static bool HasExpired(Item item)
