@@ -15,7 +15,7 @@ public class GildedRose
     {
         foreach (var item in Items)
         {
-            if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name != "Aged Brie" && !IsBackstagePass(item))
             {
                 if (QualityNotMin(item) && IsStandardItem(item))
                     ChangeQuality(item,-1);
@@ -26,7 +26,7 @@ public class GildedRose
                 {
                     ChangeQuality(item,1);
 
-                    if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                    if (IsBackstagePass(item))
                     {
                         if (item.SellIn < 11 && QualityNotMax(item)) ChangeQuality(item,1);
 
@@ -41,7 +41,7 @@ public class GildedRose
             {
                 if (item.Name != "Aged Brie")
                 {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                    if (!IsBackstagePass(item))
                     {
                         if (QualityNotMin(item) && IsStandardItem(item)) ChangeQuality(item,-1);
                     }
@@ -56,6 +56,11 @@ public class GildedRose
                 }
             }
         }
+    }
+
+    private static bool IsBackstagePass(Item item)
+    {
+        return item.Name == "Backstage passes to a TAFKAL80ETC concert";
     }
 
     private static bool IsStandardItem(Item item)
