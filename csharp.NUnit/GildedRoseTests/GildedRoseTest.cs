@@ -4,21 +4,6 @@ using NUnit.Framework;
 
 namespace GildedRoseTests;
 
-public class StandardItemHandlerShould
-{
-    [Test]
-    public void Update_standard_item()
-    {
-        var standardItem = new Item{Name = "foo", SellIn = 2, Quality = 2};
-        var handler = new StandardItemHandler();
-        handler.UpdateItem(standardItem);
-        
-        Assert.That(standardItem.Quality, Is.EqualTo(1));
-        Assert.That(standardItem.SellIn, Is.EqualTo(1));
-    }
-
-}
-
 public class GildedRoseShould
 {
     [Test]

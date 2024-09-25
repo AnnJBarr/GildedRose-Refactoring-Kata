@@ -2,22 +2,6 @@
 
 namespace GildedRoseKata;
 
-public abstract class Handler
-{
-    protected Handler NextHandler;
-    public void SetNextHandler(Handler nextHandler) => NextHandler = nextHandler;
-
-    public abstract void UpdateItem(Item item);
-}
-public class StandardItemHandler : Handler
-{
-    public override void UpdateItem(Item item)
-    {
-        item.Quality = 1;
-        item.SellIn = 1;
-    }
-}
-
 public class GildedRose
 {
     IList<Item> Items;
@@ -34,8 +18,7 @@ public class GildedRose
         {
             if (!IsBrie(item) && !IsBackstagePass(item))
             {
-                if (QualityNotMin(item) && IsStandardItem(item))
-                    DecreaseQuality(item);
+                if (QualityNotMin(item) && IsStandardItem(item)) Handler.DecreaseQuality(item);
             }
             else
             {
@@ -52,15 +35,15 @@ public class GildedRose
                 }
             }
 
-            if (IsStandardItem(item)) DecreaseSellIn(item);
+            if (IsStandardItem(item)) Handler.DecreaseSellIn(item);
 
-            if (HasExpired(item))
+            if (Handler.HasExpired(item))
             {
                 if (!IsBrie(item))
                 {
                     if (!IsBackstagePass(item))
                     {
-                        if (QualityNotMin(item) && IsStandardItem(item)) DecreaseQuality(item);
+                        if (QualityNotMin(item) && IsStandardItem(item)) Handler.DecreaseQuality(item);
                     }
                     else
                     {
@@ -80,19 +63,9 @@ public class GildedRose
         item.Quality = 0;
     }
 
-    private static void DecreaseQuality(Item item)
-    {
-        ChangeQuality(item,-1);
-    }
-
     private static void IncreaseQuality(Item item)
     {
-        ChangeQuality(item,1);
-    }
-
-    private static int DecreaseSellIn(Item item)
-    {
-        return item.SellIn -= 1;
+        Handler.ChangeQuality(item,1);
     }
 
     private static bool IsBrie(Item item)
@@ -115,12 +88,5 @@ public class GildedRose
         return item.Quality > 0;
     }
 
-    private static bool HasExpired(Item item)
-    {
-        return item.SellIn < 0;
-    }
-
     private static bool QualityNotMax(Item item) => item.Quality < 50;
-
-    private static void ChangeQuality(Item item, int amount) => item.Quality += amount;
 }
