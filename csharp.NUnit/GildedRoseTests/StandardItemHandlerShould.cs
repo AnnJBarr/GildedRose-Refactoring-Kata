@@ -1,4 +1,5 @@
-﻿using GildedRoseKata;
+﻿using FakeItEasy;
+using GildedRoseKata;
 using NUnit.Framework;
 
 namespace GildedRoseTests;
@@ -17,5 +18,18 @@ public class StandardItemHandlerShould
 
         Assert.That(standardItem.Quality, Is.EqualTo(expectedQuality));
         Assert.That(standardItem.SellIn, Is.EqualTo(initialSellIn - 1));
+    }
+
+    [Test]
+    public void Should_not_call_next_handler()
+    {
+        var nextHandlerFake = A.Fake<Handler>();
+        var standardItemHandler = new StandardItemHandler();
+        standardItemHandler.SetNextHandler(nextHandlerFake);
+        var standardItem = new Item();
+        
+        standardItemHandler.UpdateItem(standardItem);
+        
+        A.CallTo(() => nextHandlerFake.UpdateItem(standardItem)).MustNotHaveHappened();
     }
 }
