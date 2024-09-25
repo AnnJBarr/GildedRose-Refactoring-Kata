@@ -2,6 +2,22 @@
 
 namespace GildedRoseKata;
 
+public abstract class Handler
+{
+    protected Handler NextHandler;
+    public void SetNextHandler(Handler nextHandler) => NextHandler = nextHandler;
+
+    public abstract void UpdateItem(Item item);
+}
+public class StandardItemHandler : Handler
+{
+    public override void UpdateItem(Item item)
+    {
+        item.Quality = 1;
+        item.SellIn = 1;
+    }
+}
+
 public class GildedRose
 {
     IList<Item> Items;
