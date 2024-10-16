@@ -20,4 +20,18 @@ public class BrieItemHandlerShould
 
         A.CallTo(() => nextHandler.UpdateItem(item)).MustHaveHappenedANumberOfTimesMatching(i => i == numberOfCalls);
     }
+
+    [Test]
+    public void Increase_the_quality_of_brie()
+    {
+        // Arrange
+        var brie = new Item { Name = "Aged Brie", SellIn = 2, Quality = 2 };
+        var brieItemHandler = new BrieItemHandler();
+
+        // Act
+        brieItemHandler.UpdateItem(brie);
+
+        // Assert
+        Assert.That(brie.Quality, Is.EqualTo(3));
+    }
 }
