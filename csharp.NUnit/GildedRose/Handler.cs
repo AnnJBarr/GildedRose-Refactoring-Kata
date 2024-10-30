@@ -11,6 +11,11 @@ public abstract class Handler
     {
         ChangeQuality(item,-1);
     }
+    
+    public static void IncreaseQuality(Item item)
+    {
+        ChangeQuality(item,1);
+    }
 
     public static void ChangeQuality(Item item, int amount) => item.Quality += amount;
 

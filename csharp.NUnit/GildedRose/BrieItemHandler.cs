@@ -10,6 +10,6 @@ public class BrieItemHandler : Handler
             return;
         }
 
-        item.Quality++;
+        IncreaseQuality(item);
     }
 }
