@@ -5,6 +5,18 @@ using NUnit.Framework;
 namespace GildedRoseTests;
 
 [TestFixture]
+public class BackStagePassItemHandlerShould
+{
+    [Test]
+    public void doThing()
+    {
+        //Arrange
+        //Act
+        //Assert
+    }
+}
+
+[TestFixture]
 public class BrieItemHandlerShould
 {
     [TestCase("Random Item", 1)]
@@ -67,4 +79,20 @@ public class BrieItemHandlerShould
         // Assert
         Assert.That(brie.Quality, Is.EqualTo(expectedQuality));
     }
+
+    //this tests the abstract class - could move this to another location.
+    [Test]
+    public void Not_increase_in_quality_beyond_maximum()
+    {
+        // Arrange
+        var brie = new Item { Name = "Aged Brie", SellIn = 0, Quality = 50 };
+        var brieItemHandler = new BrieItemHandler();
+
+        // Act
+        brieItemHandler.UpdateItem(brie);
+
+        // Assert
+        Assert.That(brie.Quality, Is.EqualTo(50));
+    }
+    
 }

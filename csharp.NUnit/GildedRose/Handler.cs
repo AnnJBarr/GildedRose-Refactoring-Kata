@@ -16,8 +16,18 @@ public abstract class Handler
     {
         ChangeQuality(item,1);
     }
+    
+    private const int MaxItemQuality = 50;
 
-    public static void ChangeQuality(Item item, int amount) => item.Quality += amount;
+    public static void ChangeQuality(Item item, int amount)
+    {
+        var newItemQuality = item.Quality + amount;
+        if (newItemQuality > MaxItemQuality)
+        {
+            newItemQuality = MaxItemQuality;
+        }
+        item.Quality = newItemQuality;
+    } 
 
     public static bool HasExpired(Item item)
     {
