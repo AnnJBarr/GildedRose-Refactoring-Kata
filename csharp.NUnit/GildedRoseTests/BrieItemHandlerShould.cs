@@ -22,7 +22,7 @@ public class BrieItemHandlerShould
     }
 
     [Test]
-    public void Increase_the_quality_of_brie()
+    public void Increase_the_quality_of_brie_by_one_while_within_sellin_date()
     {
         // Arrange
         var brie = new Item { Name = "Aged Brie", SellIn = 2, Quality = 2 };
@@ -50,5 +50,21 @@ public class BrieItemHandlerShould
 
         //Assert
         Assert.That(item.Quality, Is.EqualTo(expectedQuality));
+    }
+
+    [TestCase(0, 4)]
+    [TestCase(1, 3)]
+    [TestCase(-1, 4)]
+    public void Increase_the_quality_of_brie_by_two_after_sellin_date(int sellin, int expectedQuality)
+    {
+        // Arrange
+        var brie = new Item { Name = "Aged Brie", SellIn = sellin, Quality = 2 };
+        var brieItemHandler = new BrieItemHandler();
+
+        // Act
+        brieItemHandler.UpdateItem(brie);
+
+        // Assert
+        Assert.That(brie.Quality, Is.EqualTo(expectedQuality));
     }
 }

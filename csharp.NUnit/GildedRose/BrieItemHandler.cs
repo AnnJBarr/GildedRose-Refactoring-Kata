@@ -11,5 +11,6 @@ public class BrieItemHandler : Handler
         }
 
         IncreaseQuality(item);
+        if (item.SellIn < 1) IncreaseQuality(item);
     }
 }
