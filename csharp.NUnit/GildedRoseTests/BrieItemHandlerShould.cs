@@ -34,4 +34,21 @@ public class BrieItemHandlerShould
         // Assert
         Assert.That(brie.Quality, Is.EqualTo(3));
     }
+
+    [Test]
+    public void Do_not_increase_quality_if_non_brie_item()
+    {
+        // Arrange
+        var item = new Item { Name = "Random Item", SellIn = 2, Quality = 2 };
+        var brieItemHandler = new BrieItemHandler();
+        var expectedQuality = 2;
+        var nextHandler = A.Fake<Handler>();
+
+        //Act
+        brieItemHandler.SetNextHandler(nextHandler);
+        brieItemHandler.UpdateItem(item);
+
+        //Assert
+        Assert.That(item.Quality, Is.EqualTo(expectedQuality));
+    }
 }

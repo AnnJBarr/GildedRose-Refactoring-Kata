@@ -7,7 +7,7 @@ public class BrieItemHandler : Handler
         if (item.Name != "Aged Brie")
         {
             NextHandler.UpdateItem(item);
-            return; // untested, how do we test for this line?
+            return;
         }
 
         item.Quality++;
