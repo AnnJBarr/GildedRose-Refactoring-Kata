@@ -6,55 +6,62 @@ public class GildedRose
 {
     IList<Item> Items;
 
+    private Handler _initialHandler;
+
     public GildedRose(IList<Item> Items)
     {
         this.Items = Items;
+        _initialHandler = new BrieItemHandler();
+        _initialHandler.SetNextHandler(new StandardItemHandler());
     }
+    
 
     public void UpdateQuality()
     {
         //can we encapsulate this logic anywhere else?
         foreach (var item in Items)
         {
-            if (!IsBrie(item) && !IsBackstagePass(item))
-            {
-                if (QualityNotMin(item) && IsStandardItem(item)) Handler.DecreaseQuality(item);
-            }
-            else
-            {
-                if (QualityNotMax(item))
-                {
-                    IncreaseQuality(item);
-
-                    if (IsBackstagePass(item))
-                    {
-                        if (item.SellIn < 11 && QualityNotMax(item)) IncreaseQuality(item);
-
-                        if (item.SellIn < 6 && QualityNotMax(item)) IncreaseQuality(item);
-                    }
-                }
-            }
-
-            if (IsStandardItem(item)) Handler.DecreaseSellIn(item);
-
-            if (Handler.HasExpired(item))
-            {
-                if (!IsBrie(item))
-                {
-                    if (!IsBackstagePass(item))
-                    {
-                        if (QualityNotMin(item) && IsStandardItem(item)) Handler.DecreaseQuality(item);
-                    }
-                    else
-                    {
-                        ReduceQualityToZero(item);
-                    }
-                }
-                else
-                {
-                    if (QualityNotMax(item)) IncreaseQuality(item);
-                }
-            }
+            _initialHandler.UpdateItem(item);
+            
+            // if (!IsBrie(item) && !IsBackstagePass(item))
+            // {
+            //     if (QualityNotMin(item) && IsStandardItem(item)) Handler.DecreaseQuality(item);
+            // }
+            // else
+            // {
+            //     if (QualityNotMax(item))
+            //     {
+            //         IncreaseQuality(item);
+            //
+            //         if (IsBackstagePass(item))
+            //         {
+            //             if (item.SellIn < 11 && QualityNotMax(item)) IncreaseQuality(item);
+            //
+            //             if (item.SellIn < 6 && QualityNotMax(item)) IncreaseQuality(item);
+            //         }
+            //     }
+            // }
+            //
+            // if (IsStandardItem(item)) Handler.DecreaseSellIn(item);
+            //
+            // if (Handler.HasExpired(item))
+            // {
+            //     if (!IsBrie(item))
+            //     {
+            //         if (!IsBackstagePass(item))
+            //         {
+            //             if (QualityNotMin(item) && IsStandardItem(item)) Handler.DecreaseQuality(item);
+            //         }
+            //         else
+            //         {
+            //             ReduceQualityToZero(item);
+            //         }
+            //     }
+            //     else
+            //     {
+            //         if (QualityNotMax(item)) IncreaseQuality(item);
+            //     }
+            // }
         }
     }
 

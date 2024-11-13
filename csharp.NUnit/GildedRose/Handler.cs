@@ -32,6 +32,7 @@ public abstract class Handler
     public static bool HasExpired(Item item)
     {
         return item.SellIn < 0;
+        return item.SellIn <= 0;
     }
 
     public static int DecreaseSellIn(Item item)
